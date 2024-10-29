@@ -1,41 +1,14 @@
-const initialGameBoard = [
-	[null, null, null],
-	[null, null, null],
-	[null, null, null],
-];
-
-const GameBoard = ({ onSelectSquare, turns }) => {
-	// const [gameBoard, setGameBoard] = useState(initialGameBoard);
-
-	// function handleSelectSquare(rowIdx, colIdx) {
-	// 	// ***States that are dependant on objects or arrays should be updated in an IMMUTABLE way
-	// 	setGameBoard((prevGameBoard) => {
-	// 		const updatedBoard = [
-	// 			...prevGameBoard.map((innerArray) => [...innerArray]),
-	// 		];
-	// 		updatedBoard[rowIdx][colIdx] = activePlayerSymbol;
-	// 		return updatedBoard;
-	// 	});
-
-	// 	onSelectSquare();
-	// }
-
-	let gameBoard = initialGameBoard;
-	for (let turn of turns) {
-		const { square, player } = turn;
-		const { row, col } = square;
-
-		gameBoard[row][col] = player;
-	}
-
+const GameBoard = ({ onSelectSquare, board }) => {
 	return (
 		<ol id="game-board">
-			{gameBoard.map((row, rowIdx) => (
+			{board.map((row, rowIdx) => (
 				<li key={rowIdx}>
 					<ol>
 						{row.map((playerSymbol, colIdx) => (
 							<li key={colIdx}>
-								<button onClick={() => onSelectSquare(rowIdx, colIdx)}>
+								<button
+									onClick={() => onSelectSquare(rowIdx, colIdx)}
+									disabled={playerSymbol !== null}>
 									{playerSymbol}
 								</button>
 							</li>
