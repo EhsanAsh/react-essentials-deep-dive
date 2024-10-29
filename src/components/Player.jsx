@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Player = ({ initialName, symbol, isActive }) => {
+const Player = ({ initialName, symbol, isActive, onChangeName }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [playerName, setPlayerName] = useState(initialName);
 
@@ -10,6 +10,9 @@ const Player = ({ initialName, symbol, isActive }) => {
 		// Then we can use it to change the button from edit to save and otherwise.
 		// This kind of changing the state will guarantee that we will always get the latest state's update
 		setIsEditing((editing) => !editing);
+		if (isEditing) {
+			onChangeName(symbol, playerName);
+		}
 	};
 
 	const handleChange = (event) => {
